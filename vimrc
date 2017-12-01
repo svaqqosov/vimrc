@@ -46,10 +46,7 @@ set mat=2 " how many tenths of a second to blink
 syntax on
 
 set encoding=utf8
-let base16colorspace=256  " Access colors present in 256 colorspace"
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
-set background=dark
-colorscheme delek
+colorscheme  Monokai
 
 set number
 
@@ -126,7 +123,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php']
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args = "--standard=zend -n --report=csv"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
@@ -166,3 +164,19 @@ let g:NERDCommentEmptyLines = 1
 " Enable trimming of trailing whitespace when uncommenting
 let g:NERDTrimTrailingWhitespace = 1
 
+" PHP Support
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+
+set completeopt=longest,menuone
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+" Vim-php-cs-fixer settings
+let g:php_cs_fixer_rules = "@PSR2"          " options: --rules (default:@PSR2)
+"let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
+"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
+" End of php-cs-fixer version 2 config params
+
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0
