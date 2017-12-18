@@ -1,3 +1,13 @@
+" Powerline support
+set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
+
+if has("gui_running")
+   let s:uname = system("uname")
+   if s:uname == "Darwin\n"
+      set guifont=Meslo\ LG\ S\ for\ Powerline
+   endif
+endif
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -7,11 +17,12 @@ call vundle#begin()
 :so ~/.vim/plugins.vim
 call vundle#end()
 
+filetype plugin on
 " use emacs-style tab completion when selecting files, etc
 set wildmode=longest,list
 
 " make tab completion for files/buffers act like bash
-set wildmenu
+set wildmenu 
 
 let mapleader=","
 
@@ -52,7 +63,10 @@ set number
 
 set autoindent " automatically set indent of new line
 set smartindent
-
+set expandtab
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set laststatus=2 " show the satus line all the time
 
 
@@ -114,17 +128,31 @@ let g:ctrlp_working_path_mode = 2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntactic plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=zend -n --report=csv"
+" let g:syntastic_php_phpcs_args = "--standard=zend -n --report=csv"
+" Syntastic configuration for PHP
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
+let g:syntastic_php_phpcs_exec = 'phpcs'
+let g:syntastic_php_phpcs_args = '--standard=psr2'
+let g:syntastic_php_phpmd_exec = 'phpmd'
+let g:syntastic_php_phpmd_post_args = 'cleancode,codesize,controversial,design,unusedcode'
+
+
+" Vim-php-cs-fixer settings
+let g:php_cs_fixer_rules = "@PSR2"
+
+" phpfmt plugin settings
+" A standard type: PEAR, PHPCS, PSR1, PSR2, Squiz and Zend
+" https://github.com/beanworks/vim-phpfmt
+let g:phpfmt_standard = 'PSR2'
+
+" Line limit settings
+highlight ColorColumn ctermbg=magenta "set to whatever you like
+call matchadd('ColorColumn', '\%121v', 100) "set column nr
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ARROW KEYS ARE UNACCEPTABLE
@@ -170,13 +198,3 @@ autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
-" Vim-php-cs-fixer settings
-let g:php_cs_fixer_rules = "@PSR2"          " options: --rules (default:@PSR2)
-"let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
-"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
-" End of php-cs-fixer version 2 config params
-
-let g:php_cs_fixer_php_path = "php"               " Path to PHP
-let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
-let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
-let g:php_cs_fixer_verbose = 0
