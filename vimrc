@@ -57,10 +57,10 @@ set mat=2 " how many tenths of a second to blink
 syntax on
 
 set encoding=utf8
-colorscheme  Monokai
+colorscheme  Tomorrow-night
 
 set number
-
+set number relativenumber
 set autoindent " automatically set indent of new line
 set smartindent
 set expandtab
