@@ -1,13 +1,5 @@
 " Powerline support
 set rtp+=/usr/local/lib/python2.7/site-packages/powerline/bindings/vim
-
-if has("gui_running")
-   let s:uname = system("uname")
-   if s:uname == "Darwin\n"
-      set guifont=Meslo\ LG\ S\ for\ Powerline
-   endif
-endif
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -69,11 +61,10 @@ set shiftwidth=2
 set softtabstop=2
 set laststatus=2 " show the satus line all the time
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+nnoremap P "0p
 map <leader>ev :e! ~/.vimrc<cr> " edit ~/.vimrc
 map <leader>wc :wincmd q<cr>
 " moving up and down work as you would expect
@@ -96,6 +87,7 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -132,14 +124,15 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-" let g:syntastic_php_phpcs_args = "--standard=zend -n --report=csv"
 " Syntastic configuration for PHP
 let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']
 let g:syntastic_php_phpcs_exec = 'phpcs'
-let g:syntastic_php_phpcs_args = '--standard=psr2'
+let g:syntastic_php_phpcs_args = '--standard=psr2 '
+let g:syntastic_php_phpcs_args = '---config-set show_warnings 0'
 let g:syntastic_php_phpmd_exec = 'phpmd'
-let g:syntastic_php_phpmd_post_args = 'cleancode,codesize,controversial,design,unusedcode'
-
+let g:syntastic_php_phpmd_post_args = 'codesize,controversial,design'
+" Syntastic configuration for JavaScript
+let g:syntastic_javascript_checkers = ['jshint']
 
 " Vim-php-cs-fixer settings
 let g:php_cs_fixer_rules = "@PSR2"
@@ -194,7 +187,9 @@ let g:NERDTrimTrailingWhitespace = 1
 
 " PHP Support
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
-
+autocmd FileType javascript setlocal equalprg=js-beautify\ --stdin
 set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
+" php namespace autocomplate
+inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
+noremap <Leader>u :call PhpInsertUse()<CR>
