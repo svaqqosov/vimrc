@@ -38,6 +38,9 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set hlsearch
 set incsearch " set incremental search, like modern browsers
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
 set nolazyredraw " don't redraw while executing macros
 
 set magic " Set magic on, for regex
@@ -66,6 +69,9 @@ set laststatus=2 " show the satus line all the time
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nnoremap P "0p
 map <leader>ev :e! ~/.vimrc<cr> " edit ~/.vimrc
+" Sourece vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
 map <leader>wc :wincmd q<cr>
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -79,6 +85,8 @@ nnoremap <c-l> <c-w>l
 
 " shortcut to save
 nmap <leader>, :w<cr>
+" jk is escape
+inoremap jk <esc>
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
 
@@ -87,7 +95,8 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<cr>
-
+" toggle gundo
+nnoremap <leader>g :GundoToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""

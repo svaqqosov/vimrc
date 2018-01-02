@@ -19,3 +19,6 @@ Plugin 'beanworks/vim-phpfmt'
 Plugin '2072/PHP-Indenting-for-VIm'
 Bundle 'arnaud-lb/vim-php-namespace'
 Plugin 'maksimr/vim-jsbeautify'
+Plugin 'mhinz/vim-grepper'
+Plugin 'http://github.com/sjl/gundo.vim.git'
+
